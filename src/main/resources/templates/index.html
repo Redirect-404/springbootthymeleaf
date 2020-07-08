@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    span th:text="helloworld"：<span th:text="helloworld">123</span>
+    <hr/>
+    span th:text="${msg}"：<span th:text="${msg}"></span>
+    <hr/>
+    span th:value="${msg}"：<span th:value="${msg}"/>
+    <hr/>
+    input th:value="${msg}"：<input th:value="${msg}"/>
+    <hr/>
+    span th:text="${#strings.contains(msg,'s')}：<span th:text="${#strings.contains(msg,'s')}"/>
+    <hr/>
+    span th:text="${#strings.toUpperCase(msg)}：<span th:text="${#strings.toUpperCase(msg)}"/>
+    <hr/>
+    span th:text="${#strings.substring(msg,2,5)}"：<span th:text="${#strings.substring(msg,2,5)}"/>
+    <hr/>
+    span th:text="${#dates.format(date)}"：<span th:text="${#dates.format(date)}"/>
+    <hr/>
+    span th:text="${#dates.format(date,'yyyy-MM-dd')}：<span th:text="${#dates.format(date,'yyyy-MM-dd')}"/>
+    <hr/>
+    span th:text="${#dates.year(date)}"：<span th:text="${#dates.year(date)}"/>
+    <hr/>
+    span th:text="${#dates.month(date)}"：<span th:text="${#dates.month(date)}"/>
+    <hr/>
+    span th:text="${#dates.day(date)}"：<span th:text="${#dates.day(date)}"/>
+    <hr/>
+    <div>
+        <span th:if="${sex} == '男'">男</span>
+        <span th:if="${sex} == '女'">女</span>
+    </div>
+    <hr/>
+    <div th:switch="${id}">
+        <span th:case="1">ID : 1</span>
+        <span th:case="2">ID : 2</span>
+        <span th:case="3">ID : 3</span>
+        <span th:case="*">ID : *</span>
+    </div>
+    <hr/>
+    <table width="50%" border="1">
+        <tr>
+            <th>name</th>
+            <th>sex</th>
+            <th>age</th>
+        </tr>
+        <tr th:each="user:${list}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.sex}"></td>
+            <td th:text="${user.age}"></td>
+        </tr>
+    </table>
+    <hr/>
+    <table width="50%" border="1">
+        <tr>
+            <th>name</th>
+            <th>sex</th>
+            <th>age</th>
+            <th>index</th>
+            <th>count</th>
+            <th>size</th>
+            <th>odd</th>
+            <th>even</th>
+            <th>first</th>
+            <th>last</th>
+
+        </tr>
+        <tr th:each="user,values:${list}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.sex}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${values.index}"></td>
+            <td th:text="${values.count}"></td>
+            <td th:text="${values.size}"></td>
+            <td th:text="${values.odd}"></td>
+            <td th:text="${values.even}"></td>
+            <td th:text="${values.first}"></td>
+            <td th:text="${values.last}"></td>
+        </tr>
+    </table>
+    <hr/>
+    <table width="50%" border="1">
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>user.value.name</th>
+            <th>user.value.sex</th>
+            <th>user.value.age</th>
+        </tr>
+        <tr th:each="user:${map}">
+            <td th:text="${user.key}"></td>
+            <td th:text="${user.value}"></td>
+            <td th:text="${user.value.name}"></td>
+            <td th:text="${user.value.sex}"></td>
+            <td th:text="${user.value.age}"></td>
+
+        </tr>
+    </table>
+    <hr/>
+    #request.getAttribute('req')：<span th:text="${#request.getAttribute('req')}"/>
+    <hr/>
+    #httpServletRequest.getAttribute('req')：<span th:text="${#httpServletRequest.getAttribute('req')}"/>
+    <hr/>
+    #session.getAttribute('ses')：<span th:text="${#session.getAttribute('ses')}"/>
+    <hr/>
+    session.ses：<span th:text="${session.ses}"/>
+    <hr/>
+    #servletContext.getAttribute('app')：<span th:text="${#servletContext.getAttribute('app')}"/>
+    <hr/>
+    application.app：<span th:text="${application.app}"/>
+    <hr/>
+    <a th:href="@{http://www.baidu.com}">百度</a>
+    <hr/>
+    <a th:href="@{/show2}">打开index</a>
+
+    <hr/>
+    @{/show2?id=1&name=yy}:<a th:href="@{/show2?id=1&name=yy}">普通传递值--->?</a>
+    <hr/>
+    @{/show2(id=1,name=yz):<a th:href="@{/show2(id=1,name=yz)}">普通传递值---->()</a>
+    <hr/>
+    @{'/show2?id='+${id}+'&name='+${name}}:<a th:href="@{'/show2?id='+${id}+'&name='+${name}}">普通传递值---->域传递？</a>
+    <hr/>
+    @{/show2(id=${id},name=${name})}:<a th:href="@{/show2(id=${id},name=${name})}">普通传递值---->域传递（）</a>
+
+    <hr/>
+    @{/show3/{id}(id=200)}:<a th:href="@{/show3/{id}(id=200)}">restful普通传递值--->单个值</a>
+    <hr/>
+    @{/show3/{id}/{name}(id=200,name=yys)}:<a th:href="@{/show3/{id}/{name}(id=200,name=yys)}">restful普通传递值--->多个值</a>
+    <hr/>
+    @{/show3/{id}(id=200,name=yyd)}:<a th:href="@{/show3/{id}(id=200,name=yyd)}">restful普通传递值--->混合传递</a>
+    <hr/>
+    @{/show3/{id}/{name}(id=${id},name=${name}):<a th:href="@{/show3/{id}/{name}(id=${id},name=${name})}">restful普通传递值--->域传递</a>
+</body>
+</html>
